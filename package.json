@@ -22,8 +22,8 @@
     "mongoose": "5.10.1"
   },
   "scripts": {
-    "build": "tsc --project ./tsconfig.json",
-    "dev": "env-cmd -f ./env/development.env nodemon --watch src --ext ts --exec npm run server",
-    "server": "ts-node src/app.ts"
+    "build": "tsc -p .",
+    "dev": "nodemon --watch src --ext ts --exec npm run server",
+    "server": "tsc -p . && env-cmd -f ./env/development.env node dist/app.js"
   }
 }
