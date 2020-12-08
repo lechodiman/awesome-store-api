@@ -1,7 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import { v4 as uuid } from 'uuid';
 
-interface ProductModel extends Document {
+export interface ProductModel extends Document {
   productId: string;
   brand: string;
   name: string;
