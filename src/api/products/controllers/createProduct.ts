@@ -8,7 +8,6 @@ import { Request, Response } from 'express-serve-static-core';
 const createProductSchema = ProductSchema.pick({
   brand: true,
   description: true,
-  imageUrl: true,
   name: true,
   price: true,
 });

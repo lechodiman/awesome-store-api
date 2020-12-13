@@ -4,9 +4,11 @@ import Product, { ProductSchema } from '../models/Product';
 import { Request, Response } from 'express-serve-static-core';
 import * as z from 'zod';
 
-const updateProductSchema = ProductSchema.omit({
-  productId: true,
-  imageUrl: true,
+const updateProductSchema = ProductSchema.pick({
+  brand: true,
+  description: true,
+  name: true,
+  price: true,
 }).partial();
 
 const updateProduct = async (req: Request, res: Response) => {
