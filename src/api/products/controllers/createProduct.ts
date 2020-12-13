@@ -5,7 +5,7 @@ import { deleteFile, uploadFile } from '../../../config/multer';
 import { v4 as uuid } from 'uuid';
 import { Request, Response } from 'express-serve-static-core';
 
-const CreateProductSchema = ProductSchema.pick({
+const createProductSchema = ProductSchema.pick({
   brand: true,
   description: true,
   imageUrl: true,
@@ -15,7 +15,7 @@ const CreateProductSchema = ProductSchema.pick({
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const params = req.body as z.infer<typeof CreateProductSchema>;
+    const params = req.body as z.infer<typeof createProductSchema>;
 
     const uploadedImage = await cloudinary.uploader.upload(req.file.path);
 
