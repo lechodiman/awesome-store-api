@@ -35,9 +35,7 @@ const listProducts = async (req: Request, res: Response) => {
     ],
   });
 
-  res.json({
-    products,
-  });
+  res.json(products);
 };
 
 export default listProducts;
