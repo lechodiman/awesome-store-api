@@ -8,7 +8,7 @@ const deleteProduct = async (req: Request, res: Response) => {
   await cloudinary.uploader.destroy(product.imageUrl);
   await product.remove();
 
-  res.json({ product });
+  res.json(product);
 };
 
 export default deleteProduct;

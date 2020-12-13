@@ -24,7 +24,7 @@ const createProduct = async (req: Request, res: Response) => {
       imageUrl: uploadedImage.url,
     });
 
-    res.json({ product });
+    res.json(product);
 
     deleteFile(req.file.path);
   } catch (error) {

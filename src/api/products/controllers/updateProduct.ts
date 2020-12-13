@@ -36,9 +36,7 @@ const updateProduct = async (req: Request, res: Response) => {
     { omitUndefined: true, new: true }
   );
 
-  res.json({
-    product: updatedProduct,
-  });
+  res.json(updatedProduct);
 };
 
 export default updateProduct;

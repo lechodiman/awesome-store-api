@@ -2,12 +2,15 @@ import express from 'express';
 import { uploadFile } from '../../config/multer';
 import createProduct from './controllers/createProduct';
 import deleteProduct from './controllers/deleteProduct';
+import getProduct from './controllers/getProduct';
 import listProducts from './controllers/listProducts';
 import updateProduct from './controllers/updateProduct';
 
 const router = express.Router();
 
 router.get('/', listProducts);
+
+router.get('/:productId', getProduct);
 
 router.post('/', uploadFile.single('image'), createProduct);
 
