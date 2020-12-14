@@ -42,3 +42,8 @@ This will watch the `src` directory for changes and will recompile and run the A
 ## Error handling
 
 Error handling was managed using Zod for input validation and `serialize-error` to create a response that can be handled by a client.
+
+## TODO
+
+- [ ] Integration tests with Jest
+- [ ] Error handling for Server Error and NotFound
