@@ -29,6 +29,8 @@
   },
   "scripts": {
     "build": "tsc -p .",
+    "postinstall": "npm run build",
+    "start": "node dist/app.js",
     "dev": "nodemon --watch src --ext ts --exec npm run server",
     "server": "tsc -p . && env-cmd -f ./env/development.env node dist/app.js"
   }
