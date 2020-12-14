@@ -47,3 +47,5 @@ Error handling was managed using Zod for input validation and `serialize-error` 
 
 - [ ] Integration tests with Jest
 - [ ] Error handling for Server Error and NotFound
+- [ ] Eslint + prettier setup for Express + Typescript
+- [ ] CI using Github Actions to run integration tests and EsLint
