@@ -3,40 +3,58 @@ import { deleteFile } from '../../../config/multer';
 import Product, { ProductSchema } from '../models/Product';
 import { Request, Response } from 'express-serve-static-core';
 import * as z from 'zod';
+import { serializeError } from 'serialize-error';
 
 const updateProductSchema = ProductSchema.pick({
   brand: true,
   description: true,
   name: true,
-  price: true,
-}).partial();
+})
+  .merge(
+    z.object({
+      price: z.transformer(z.string(), z.number(), (val) => +val),
+    })
+  )
+  .partial();
 
 const updateProduct = async (req: Request, res: Response) => {
-  const product = await Product.findOne({ productId: req.params.productId });
+  try {
+    updateProductSchema.parse(req.body);
 
-  const params = req.body as z.infer<typeof updateProductSchema>;
+    const product = await Product.findOne({ productId: req.params.productId });
 
-  let imageUrl = product.imageUrl;
+    const params = req.body as z.infer<typeof updateProductSchema>;
 
-  if (req.file) {
-    await cloudinary.uploader.destroy(product.imageUrl);
-    const uploadedImage = await cloudinary.uploader.upload(req.file.path);
+    let imageUrl = product.imageUrl;
 
-    deleteFile(req.file.path);
+    if (req.file) {
+      await cloudinary.uploader.destroy(product.imageUrl);
+      const uploadedImage = await cloudinary.uploader.upload(req.file.path);
 
-    imageUrl = uploadedImage.url;
+      deleteFile(req.file.path);
+
+      imageUrl = uploadedImage.url;
+    }
+
+    const updatedProduct = await Product.findOneAndUpdate(
+      { productId: product.productId },
+      {
+        ...params,
+        imageUrl,
+      },
+      { omitUndefined: true, new: true }
+    );
+
+    res.json(updatedProduct);
+  } catch (error) {
+    res.status(400).json({
+      message: serializeError(error),
+    });
+  } finally {
+    if (req.file) {
+      deleteFile(req.file.path);
+    }
   }
-
-  const updatedProduct = await Product.findOneAndUpdate(
-    { productId: product.productId },
-    {
-      ...params,
-      imageUrl,
-    },
-    { omitUndefined: true, new: true }
-  );
-
-  res.json(updatedProduct);
 };
 
 export default updateProduct;
