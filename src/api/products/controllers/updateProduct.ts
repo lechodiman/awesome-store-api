@@ -5,7 +5,7 @@ import { Request, Response } from 'express-serve-static-core';
 import * as z from 'zod';
 import { serializeError } from 'serialize-error';
 
-const updateProductSchema = ProductSchema.pick({
+const UpdateProductSchema = ProductSchema.pick({
   brand: true,
   description: true,
   name: true,
@@ -19,11 +19,11 @@ const updateProductSchema = ProductSchema.pick({
 
 const updateProduct = async (req: Request, res: Response) => {
   try {
-    updateProductSchema.parse(req.body);
+    UpdateProductSchema.parse(req.body);
 
     const product = await Product.findOne({ productId: req.params.productId });
 
-    const params = req.body as z.infer<typeof updateProductSchema>;
+    const params = req.body as z.infer<typeof UpdateProductSchema>;
 
     let imageUrl = product.imageUrl;
 

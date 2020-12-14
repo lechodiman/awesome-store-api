@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import { Request, Response } from 'express-serve-static-core';
 import { serializeError } from 'serialize-error';
 
-const createProductSchema = ProductSchema.pick({
+const CreateProductSchema = ProductSchema.pick({
   brand: true,
   description: true,
   name: true,
@@ -18,9 +18,9 @@ const createProductSchema = ProductSchema.pick({
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    createProductSchema.parse(req.body);
+    CreateProductSchema.parse(req.body);
 
-    const params = req.body as z.infer<typeof createProductSchema>;
+    const params = req.body as z.infer<typeof CreateProductSchema>;
 
     const uploadedImage = await cloudinary.uploader.upload(req.file.path);
 
