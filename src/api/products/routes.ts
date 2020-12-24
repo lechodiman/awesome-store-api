@@ -1,5 +1,6 @@
 import express from 'express';
 import { uploadFile } from '../../config/multer';
+import bulkDeleteProducts from './controllers/bulkDeleteProducts';
 import createProduct from './controllers/createProduct';
 import deleteProduct from './controllers/deleteProduct';
 import getProduct from './controllers/getProduct';
@@ -9,6 +10,8 @@ import updateProduct from './controllers/updateProduct';
 const router = express.Router();
 
 router.get('/', listProducts);
+
+router.delete('/', bulkDeleteProducts);
 
 router.get('/:productId', getProduct);
 
